@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Тiчер1",
+    "Faculty": "ФКНК",
+    "Cathedra": "kk",
+    "Auditory": "02",
+    "Subject": "Матан",
+    "StudentGroup": "К-17"
+  },
+  {
+    "Name": "Тiчер2",
+    "Faculty": "ФКНК",
+    "Cathedra": "ll",
+    "Auditory": "02",
+    "Subject": "Дифури",
+    "StudentGroup": "К-27"
+  },
+  {
+    "Name": "Тiчер3",
+    "Faculty": "ФКНК",
+    "Cathedra": "gg",
+    "Auditory": "02",
+    "Subject": "ООП",
+    "StudentGroup": "К-27"
+  }
+]
