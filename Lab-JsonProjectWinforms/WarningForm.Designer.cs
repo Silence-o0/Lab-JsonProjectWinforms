@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WarningForm));
             this.okButton = new System.Windows.Forms.Button();
             this.labelErrorMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -69,8 +70,9 @@
             this.ClientSize = new System.Drawing.Size(542, 301);
             this.Controls.Add(this.labelErrorMessage);
             this.Controls.Add(this.okButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WarningForm";
-            this.Text = "Warning";
+            this.Text = "Error";
             this.Load += new System.EventHandler(this.WarningForm_Load);
             this.ResumeLayout(false);
 

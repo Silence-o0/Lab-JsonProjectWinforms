@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.DataGridView = new System.Windows.Forms.DataGridView();
             this.EditButton = new System.Windows.Forms.Button();
             this.textBoxDataSearch = new System.Windows.Forms.TextBox();
             this.ComboBoxTypeSearch = new System.Windows.Forms.ComboBox();
             this.SearchText = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.AddButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -63,10 +62,10 @@
             this.DataGridView.Location = new System.Drawing.Point(538, 93);
             this.DataGridView.Name = "DataGridView";
             this.DataGridView.RowHeadersWidth = 62;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Lavender;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.MidnightBlue;
-            this.DataGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Lavender;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.MidnightBlue;
+            this.DataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridView.RowTemplate.ReadOnly = true;
             this.DataGridView.Size = new System.Drawing.Size(462, 364);
             this.DataGridView.TabIndex = 1;
@@ -120,18 +119,6 @@
             this.SearchText.TabIndex = 11;
             this.SearchText.Text = "Search:";
             this.SearchText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(321, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 30);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Search:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AddButton
             // 
@@ -221,11 +208,11 @@
             // okSearchButton
             // 
             this.okSearchButton.BackColor = System.Drawing.Color.LightCyan;
-            this.okSearchButton.BackgroundImage = global::Lab_JsonProjectWinforms.Properties.Resources.add_button_icon1;
+            this.okSearchButton.BackgroundImage = global::Lab_JsonProjectWinforms.Properties.Resources.ok_icon;
             this.okSearchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.okSearchButton.FlatAppearance.BorderSize = 0;
             this.okSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.okSearchButton.Location = new System.Drawing.Point(459, 165);
+            this.okSearchButton.Location = new System.Drawing.Point(458, 160);
             this.okSearchButton.Name = "okSearchButton";
             this.okSearchButton.Size = new System.Drawing.Size(37, 37);
             this.okSearchButton.TabIndex = 19;
@@ -235,15 +222,16 @@
             // returnSearchButton
             // 
             this.returnSearchButton.BackColor = System.Drawing.Color.LightCyan;
-            this.returnSearchButton.BackgroundImage = global::Lab_JsonProjectWinforms.Properties.Resources.add_button_icon1;
+            this.returnSearchButton.BackgroundImage = global::Lab_JsonProjectWinforms.Properties.Resources.return2_icon2;
             this.returnSearchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.returnSearchButton.FlatAppearance.BorderSize = 0;
             this.returnSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.returnSearchButton.Location = new System.Drawing.Point(459, 208);
+            this.returnSearchButton.Location = new System.Drawing.Point(458, 203);
             this.returnSearchButton.Name = "returnSearchButton";
-            this.returnSearchButton.Size = new System.Drawing.Size(37, 37);
+            this.returnSearchButton.Size = new System.Drawing.Size(37, 35);
             this.returnSearchButton.TabIndex = 20;
             this.returnSearchButton.UseVisualStyleBackColor = false;
+            this.returnSearchButton.Click += new System.EventHandler(this.ReturnSearchButton_Click);
             // 
             // MainForm
             // 
@@ -255,7 +243,6 @@
             this.Controls.Add(this.okSearchButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.AddButton);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.SearchText);
             this.Controls.Add(this.ComboBoxTypeSearch);
             this.Controls.Add(this.textBoxDataSearch);
@@ -283,7 +270,6 @@
         private TextBox textBoxDataSearch;
         private ComboBox ComboBoxTypeSearch;
         private Label SearchText;
-        private Label label1;
         private Button AddButton;
         private Button DeleteButton;
         private MenuStrip menuStrip1;

@@ -15,20 +15,21 @@ namespace Lab_JsonProjectWinforms
     static partial class Data
     {
         public static DataTable table = new DataTable();
-        public static List<Schedule> lessonsList;
+        public static List<Schedule> lessonsList = new List<Schedule>();
         public static string? ErrorMessage;
         public static bool AddNewElement;      
-        public static int EditRowIndex;
+        public static int EditRowIndex;        //індекс рядку, який користувач хоче змінити
+        public static bool YesResultInForm;
         public class Schedule
         {
-            public string Name { get; set; }
-            public string Faculty { get; set; }
+            public string? Name { get; set; }
+            public string? Faculty { get; set; }
 
             public string? Cathedra { get; set; }
 
             public string? Auditory { get; set; }
 
-            public string Subject { get; set; }
+            public string? Subject { get; set; }
 
             public string? StudentGroup { get; set; }
             public Schedule() { }
