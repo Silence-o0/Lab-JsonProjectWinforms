@@ -40,11 +40,11 @@
             this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lavender;
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.okButton.Font = new System.Drawing.Font("Comic Sans MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.okButton.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.okButton.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.okButton.Location = new System.Drawing.Point(240, 224);
+            this.okButton.Location = new System.Drawing.Point(227, 219);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(67, 36);
+            this.okButton.Size = new System.Drawing.Size(78, 42);
             this.okButton.TabIndex = 17;
             this.okButton.Text = "Ok";
             this.okButton.UseVisualStyleBackColor = false;
@@ -71,7 +71,11 @@
             this.Controls.Add(this.labelErrorMessage);
             this.Controls.Add(this.okButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(564, 357);
+            this.MaximumSize = new System.Drawing.Size(564, 357);
+            this.MinimumSize = new System.Drawing.Size(564, 357);
             this.Name = "WarningForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Error";
             this.Load += new System.EventHandler(this.WarningForm_Load);
             this.ResumeLayout(false);

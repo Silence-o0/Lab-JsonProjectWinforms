@@ -113,9 +113,39 @@ namespace Lab_JsonProjectWinforms.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_button_icon2 {
+            get {
+                object obj = ResourceManager.GetObject("add-button-icon2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap delete_button_icon {
             get {
                 object obj = ResourceManager.GetObject("delete-button-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete_button_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("delete-button-icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Edit {
+            get {
+                object obj = ResourceManager.GetObject("Edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -136,6 +166,16 @@ namespace Lab_JsonProjectWinforms.Properties {
         internal static System.Drawing.Bitmap ok_icon {
             get {
                 object obj = ResourceManager.GetObject("ok-icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ok_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("ok-icon1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +226,16 @@ namespace Lab_JsonProjectWinforms.Properties {
         internal static System.Drawing.Bitmap return2_icon2 {
             get {
                 object obj = ResourceManager.GetObject("return2-icon2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap return2_icon3 {
+            get {
+                object obj = ResourceManager.GetObject("return2-icon3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

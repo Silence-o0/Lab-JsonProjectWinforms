@@ -108,9 +108,9 @@ namespace Lab_JsonProjectWinforms
             Buttons.EditData(this);
         }
 
-        private void SaveAsButton_Click(object sender, EventArgs e)
+        private void SaveAs_Click(object sender, EventArgs e)
         {
-            Buttons.SaveAs();
+            
         }
 
         private void OpenAsButton_Click(object sender, EventArgs e)
@@ -142,8 +142,17 @@ namespace Lab_JsonProjectWinforms
         {
             Buttons.ReturnToMainList(this);
         }
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            Buttons.Save(this);
+        }
 
-         static class Buttons
+        private void SaveAsButton_Click(object sender, EventArgs e)
+        {
+            Buttons.SaveAs();
+        }
+
+        static class Buttons
          {
             internal static void SaveAs()
             {
@@ -175,6 +184,27 @@ namespace Lab_JsonProjectWinforms
                         warningForm.Show();
                         return;
                     }
+                }
+                catch
+                {
+                    Data.ErrorMessage = "Не вдається зберегти файл.";
+                    WarningForm warningForm = new();
+                    warningForm.Show();
+                }
+            }
+
+            internal static void Save(dynamic form)
+            {
+                try
+                {
+                    var options = new JsonSerializerOptions
+                    {
+                        Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                        WriteIndented = true
+                    };
+
+                    string serializedFile = JsonSerializer.Serialize(Data.lessonsList, options);
+                    File.WriteAllText(form.Path, serializedFile);
                 }
                 catch
                 {
@@ -244,49 +274,75 @@ namespace Lab_JsonProjectWinforms
                     WarningForm warningForm = new();
                     warningForm.Show();
                 }
+                ReturnToMainList(form);
             }
 
             internal static void AddData(dynamic form)
             {
-                Data.AddNewElement = true;       //змінна, яка каже що користувач хоче додати рядок
+                Data.AddNewElement = true;       //змінна, яка каже, що користувач хоче додати рядок
                 AddEditForm addEditForm = new();
                 addEditForm.Show();
+                ReturnToMainList(form);
             }
 
             internal static void DeleteData(dynamic form)
             {
-                if (form.DataGridView.SelectedRows.Count > 0 && form.DataGridView.SelectedRows.Count < form.DataGridView.Rows.Count)
+                try
                 {
-                    try
+                    if (form.DataGridView.SelectedRows.Count > 0 && form.DataGridView.SelectedRows.Count <= form.DataGridView.Rows.Count)
                     {
-                        Data.ErrorMessage = "Ви впевнені, що хочете видалити?";
-                        YesNoForm yesNoForm = new();
-                        yesNoForm.Show();
+                        DialogResult result = MessageBox.Show("Ви впевнені, що хочете видалити?", "Видалення", MessageBoxButtons.YesNo);
 
-                        if (Data.YesResultInForm == true)
+                        switch (result)
                         {
-                            foreach (DataGridViewRow row in form.DataGridView.SelectedRows)
-                            {
-                                form.DataGridView.Rows.RemoveAt(row.Index);
-                            }
+                            case DialogResult.Yes:
+                                {
 
-                            form.currentListOnTable = Data.lessonsList;
+                                    foreach (DataGridViewRow row in form.DataGridView.SelectedRows)
+                                    {
+                                        int i = 0;
+                                        foreach (Data.Schedule element in Data.lessonsList)
+                                        {
+                                            if (element.Name == row.Cells[0].Value.ToString() &&
+                                                element.Faculty == row.Cells[1].Value.ToString() &&
+                                                element.Cathedra == row.Cells[2].Value.ToString() &&
+                                                element.Auditory == row.Cells[3].Value.ToString() &&
+                                                element.Subject == row.Cells[4].Value.ToString() &&
+                                                element.StudentGroup == row.Cells[5].Value.ToString())
+                                            {
+                                                break;
+                                            }
+                                            i++;
+                                        }
+                                        if (form.DataGridView.Rows.Count != Data.lessonsList.Count)
+                                        {
+                                            DataRow rr = Data.table.Rows[i];
+                                            rr.Delete();
+                                        }
+                                        Data.lessonsList.RemoveAt(i);
+
+                                        form.DataGridView.Rows.RemoveAt(row.Index);
+                                    }
+                                }
+                                break;
+
+                            case DialogResult.No:
+                                break;
                         }
                     }
-                    catch
+                    else if (form.DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
                     {
-                        Data.ErrorMessage = "Помилка видалення.";
+                        Data.ErrorMessage = "Оберіть рядок, який хочете видалити, натиснувши на відповідну " +
+                           "клітинку у першому стовпчику та виділивши бажаний рядок.";
                         WarningForm warningForm = new();
                         warningForm.Show();
                     }
                 }
-                else if (form.DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
+                catch
                 {
-                    Data.ErrorMessage = "Оберіть рядок, який хочете видалити, натиснувши на відповідну " +
-                       "клітинку у першому стовпчику та виділивши бажаний рядок.";
+                    Data.ErrorMessage = "Невдалось видалити. Спробуйте ще раз.";
                     WarningForm warningForm = new();
                     warningForm.Show();
-
                 }
             }
 
@@ -344,7 +400,7 @@ namespace Lab_JsonProjectWinforms
                     form.CreateTableColumns(resultTable);
 
                     var templist = from temp in list
-                                   where temp.Name.ToLower() == form.textBoxDataSearch.Text.ToLower()
+                                   where temp.Name.ToLower().Contains(form.textBoxDataSearch.Text.ToLower())
                                    select temp;
 
                     form.AddToTable(list, ref resultTable);
@@ -390,7 +446,7 @@ namespace Lab_JsonProjectWinforms
                     form.CreateTableColumns(resultTable);
 
                     var templist = from temp in list
-                                   where temp.StudentGroup.ToLower() == form.textBoxDataSearch.Text.ToLower()
+                                   where temp.StudentGroup.ToLower().Contains(form.textBoxDataSearch.Text.ToLower())
                                    select temp;
 
                     form.AddToTable(list, ref resultTable);

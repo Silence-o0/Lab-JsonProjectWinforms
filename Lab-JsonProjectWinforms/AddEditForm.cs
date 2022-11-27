@@ -20,53 +20,117 @@ namespace Lab_JsonProjectWinforms
 
         private void AddEditForm_Load(object sender, EventArgs e)
         {
-            if (Data.AddNewElement == true)
+            try
             {
-                acceptButton.Text = "Add";
-                this.Text = "Adding";
+                if (Data.AddNewElement == true)        //якщо додаємо рядок
+                {
+                    acceptButton.Text = "Add";
+                    this.Text = "Adding";
+                }
+                else       //якщо редагуємо рядок
+                {
+                    acceptButton.Text = "Edit";
+                    this.Text = "Editing";
+
+                    textBoxName.Text = Data.lessonsList[Data.EditRowIndex].Name;
+                    textBoxFaculty.Text = Data.lessonsList[Data.EditRowIndex].Faculty;
+                    textBoxCathedra.Text = Data.lessonsList[Data.EditRowIndex].Cathedra;
+                    textBoxAuditory.Text = Data.lessonsList[Data.EditRowIndex].Auditory;
+                    textBoxSubject.Text = Data.lessonsList[Data.EditRowIndex].Subject;
+                    textBoxGroup.Text = Data.lessonsList[Data.EditRowIndex].StudentGroup;
+                }
             }
-            else
+            catch
             {
-                acceptButton.Text = "Edit";
-                this.Text = "Editing";
-                textBoxName.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("ПІБ викладача");
-                textBoxFaculty.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("Факультет");
-                textBoxCathedra.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("Кафедра");
-                textBoxAuditory.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("Аудиторія");
-                textBoxSubject.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("Дисципліна");
-                textBoxGroup.Text = Data.table.Rows[Data.EditRowIndex].Field<string>("Група");
+                Data.ErrorMessage = "Помилка відкриття форми.";
+                WarningForm warningForm = new();
+                warningForm.Show();
             }
         }
 
         private void AcceptButton_Click(object sender, EventArgs e)
         {
             AcceptAction();
-
         }
         private void AcceptAction()
         {
-            if (Data.AddNewElement == true)
+            if (textBoxName.Text == "" || textBoxSubject.Text == "" || textBoxGroup.Text == "")
             {
-                Data.lessonsList.Add(new Data.Schedule(textBoxName.Text, textBoxFaculty.Text, textBoxCathedra.Text, textBoxAuditory.Text,
-                    textBoxSubject.Text, textBoxGroup.Text));
-
-                int index = Data.lessonsList.Count() - 1;
-                Data.table.Rows.Add(Data.lessonsList[index].Name, Data.lessonsList[index].Faculty, Data.lessonsList[index].Cathedra,
-                    Data.lessonsList[index].Auditory, Data.lessonsList[index].Subject, Data.lessonsList[index].StudentGroup);
-
+                Data.ErrorMessage = "Зверніть увагу, поля 'ПІБ', 'Дисципліна' та 'Група' не можуть бути порожніми.";
+                WarningForm warningForm = new();
+                warningForm.Show();
             }
-            else
+            else 
             {
-                Data.table.Rows[Data.EditRowIndex][0] = textBoxName.Text;
-                Data.table.Rows[Data.EditRowIndex][1] = textBoxFaculty.Text;
-                Data.table.Rows[Data.EditRowIndex][2] = textBoxCathedra.Text;
-                Data.table.Rows[Data.EditRowIndex][3] = textBoxAuditory.Text;
-                Data.table.Rows[Data.EditRowIndex][4] = textBoxSubject.Text;
-                Data.table.Rows[Data.EditRowIndex][5] = textBoxGroup.Text;
+                bool isElementAlreadyExist = false;
+                if (Data.AddNewElement == true)
+                {
+                    isElementAlreadyExist = CheckExisting();
+                    if (isElementAlreadyExist == false)
+                    {
+                        try
+                        {
+                            Data.lessonsList.Add(new Data.Schedule(textBoxName.Text, textBoxFaculty.Text, textBoxCathedra.Text, textBoxAuditory.Text,
+                                textBoxSubject.Text, textBoxGroup.Text));
+
+                            int index = Data.lessonsList.Count() - 1;
+                            Data.table.Rows.Add(Data.lessonsList[index].Name, Data.lessonsList[index].Faculty, Data.lessonsList[index].Cathedra,
+                                Data.lessonsList[index].Auditory, Data.lessonsList[index].Subject, Data.lessonsList[index].StudentGroup);
+                        }
+                        catch
+                        {
+                            Data.ErrorMessage = "Помилка додавання.";
+                            WarningForm warningForm = new();
+                            warningForm.Show();
+                        }
+                    }
+                    else
+                    {
+                        Data.ErrorMessage = "Такий рядок вже існує!";
+                        WarningForm warningForm = new();
+                        warningForm.Show();
+                    }
+
+                }
+                else
+                {
+                    try
+                    {
+                        Data.table.Rows[Data.EditRowIndex][0] = textBoxName.Text;
+                        Data.table.Rows[Data.EditRowIndex][1] = textBoxFaculty.Text;
+                        Data.table.Rows[Data.EditRowIndex][2] = textBoxCathedra.Text;
+                        Data.table.Rows[Data.EditRowIndex][3] = textBoxAuditory.Text;
+                        Data.table.Rows[Data.EditRowIndex][4] = textBoxSubject.Text;
+                        Data.table.Rows[Data.EditRowIndex][5] = textBoxGroup.Text;
+                    }
+                    catch
+                    {
+                        Data.ErrorMessage = "Помилка редагування.";
+                        WarningForm warningForm = new();
+                        warningForm.Show();
+                    }
+                }
+
+                this.Close();
             }
-            this.Close();
         }
 
+        private bool CheckExisting()
+        {
+            foreach (Data.Schedule element in Data.lessonsList)
+            {
+                if (textBoxName.Text.ToLower() == element.Name.ToLower() &&
+                    textBoxFaculty.Text.ToLower() == element.Faculty.ToLower() &&
+                    textBoxCathedra.Text.ToLower() == element.Cathedra.ToLower() &&
+                    textBoxAuditory.Text.ToLower() == element.Auditory.ToLower() &&
+                    textBoxSubject.Text.ToLower() == element.Subject.ToLower() &&
+                    textBoxGroup.Text.ToLower() == element.StudentGroup.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         private void LabelName_Click(object sender, EventArgs e)
         {
 

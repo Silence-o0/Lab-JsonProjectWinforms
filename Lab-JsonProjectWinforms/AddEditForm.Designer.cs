@@ -47,6 +47,7 @@
             // 
             // acceptButton
             // 
+            this.acceptButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.acceptButton.BackColor = System.Drawing.Color.Lavender;
             this.acceptButton.FlatAppearance.BorderColor = System.Drawing.Color.MediumPurple;
             this.acceptButton.FlatAppearance.BorderSize = 2;
@@ -56,6 +57,8 @@
             this.acceptButton.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.acceptButton.ForeColor = System.Drawing.Color.MidnightBlue;
             this.acceptButton.Location = new System.Drawing.Point(260, 425);
+            this.acceptButton.MaximumSize = new System.Drawing.Size(171, 47);
+            this.acceptButton.MinimumSize = new System.Drawing.Size(171, 47);
             this.acceptButton.Name = "acceptButton";
             this.acceptButton.Size = new System.Drawing.Size(171, 47);
             this.acceptButton.TabIndex = 2;
@@ -65,6 +68,7 @@
             // 
             // labelName
             // 
+            this.labelName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelName.ForeColor = System.Drawing.Color.Blue;
@@ -94,6 +98,7 @@
             // 
             // textBoxName
             // 
+            this.textBoxName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxName.Location = new System.Drawing.Point(274, 67);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(300, 31);
@@ -102,6 +107,7 @@
             // 
             // labelFaculty
             // 
+            this.labelFaculty.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelFaculty.AutoSize = true;
             this.labelFaculty.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelFaculty.ForeColor = System.Drawing.Color.Blue;
@@ -115,6 +121,7 @@
             // 
             // labelCathedra
             // 
+            this.labelCathedra.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelCathedra.AutoSize = true;
             this.labelCathedra.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelCathedra.ForeColor = System.Drawing.Color.Blue;
@@ -127,6 +134,7 @@
             // 
             // labelAuditory
             // 
+            this.labelAuditory.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelAuditory.AutoSize = true;
             this.labelAuditory.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelAuditory.ForeColor = System.Drawing.Color.Blue;
@@ -139,6 +147,7 @@
             // 
             // labelSubject
             // 
+            this.labelSubject.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelSubject.AutoSize = true;
             this.labelSubject.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelSubject.ForeColor = System.Drawing.Color.Blue;
@@ -151,6 +160,7 @@
             // 
             // labelGroup
             // 
+            this.labelGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelGroup.AutoSize = true;
             this.labelGroup.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelGroup.ForeColor = System.Drawing.Color.Blue;
@@ -163,6 +173,7 @@
             // 
             // textBoxFaculty
             // 
+            this.textBoxFaculty.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxFaculty.Location = new System.Drawing.Point(274, 119);
             this.textBoxFaculty.Name = "textBoxFaculty";
             this.textBoxFaculty.Size = new System.Drawing.Size(300, 31);
@@ -171,6 +182,7 @@
             // 
             // textBoxCathedra
             // 
+            this.textBoxCathedra.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxCathedra.Location = new System.Drawing.Point(274, 174);
             this.textBoxCathedra.Name = "textBoxCathedra";
             this.textBoxCathedra.Size = new System.Drawing.Size(300, 31);
@@ -178,6 +190,7 @@
             // 
             // textBoxAuditory
             // 
+            this.textBoxAuditory.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxAuditory.Location = new System.Drawing.Point(274, 224);
             this.textBoxAuditory.Name = "textBoxAuditory";
             this.textBoxAuditory.Size = new System.Drawing.Size(300, 31);
@@ -185,6 +198,7 @@
             // 
             // textBoxSubject
             // 
+            this.textBoxSubject.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxSubject.Location = new System.Drawing.Point(274, 276);
             this.textBoxSubject.Name = "textBoxSubject";
             this.textBoxSubject.Size = new System.Drawing.Size(300, 31);
@@ -192,6 +206,7 @@
             // 
             // textBoxGroup
             // 
+            this.textBoxGroup.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxGroup.Location = new System.Drawing.Point(274, 331);
             this.textBoxGroup.Name = "textBoxGroup";
             this.textBoxGroup.Size = new System.Drawing.Size(300, 31);
@@ -219,6 +234,7 @@
             this.Controls.Add(this.acceptButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddEditForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddEdit";
             this.Load += new System.EventHandler(this.AddEditForm_Load);
             this.ResumeLayout(false);

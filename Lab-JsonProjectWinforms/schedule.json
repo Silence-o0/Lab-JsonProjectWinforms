@@ -1,26 +1,66 @@
 [
   {
-    "Name": "Тічер1",
+    "Name": "Шкільняк С.С.",
     "Faculty": "ФКНК",
-    "Cathedra": "kk",
-    "Auditory": "02",
-    "Subject": "Матан",
+    "Cathedra": "",
+    "Auditory": "34",
+    "Subject": "Математична логіка",
+    "StudentGroup": "К-17, К-18"
+  },
+  {
+    "Name": "Анікушин А.В.",
+    "Faculty": "ФКНК",
+    "Cathedra": "",
+    "Auditory": "22",
+    "Subject": "Математичний аналіз",
     "StudentGroup": "К-17"
   },
   {
-    "Name": "Тiчер2",
+    "Name": "Омельчук Л.Л.",
     "Faculty": "ФКНК",
-    "Cathedra": "ll",
-    "Auditory": "02",
-    "Subject": "Дифури",
+    "Cathedra": "",
+    "Auditory": "",
+    "Subject": "ООП",
     "StudentGroup": "К-27"
   },
   {
-    "Name": "Тічер1",
+    "Name": "Ставровський А.Б.",
     "Faculty": "ФКНК",
-    "Cathedra": "gg",
-    "Auditory": "02",
-    "Subject": "ООП",
-    "StudentGroup": "К-27"
+    "Cathedra": "",
+    "Auditory": "",
+    "Subject": "Програмування",
+    "StudentGroup": "К-14, К-15, К-16, К-17"
+  },
+  {
+    "Name": "Набока ",
+    "Faculty": "",
+    "Cathedra": "",
+    "Auditory": "",
+    "Subject": "ВДУС",
+    "StudentGroup": "К-14, К-15, К-16, К-17"
+  },
+  {
+    "Name": "Шкільняк С.С.",
+    "Faculty": "ФКНК",
+    "Cathedra": "",
+    "Auditory": "34",
+    "Subject": "Математична логіка",
+    "StudentGroup": "К-25, К-26"
+  },
+  {
+    "Name": "Ставровський А.Б.",
+    "Faculty": "ФКНК",
+    "Cathedra": "",
+    "Auditory": "",
+    "Subject": "АОС",
+    "StudentGroup": "К-27, К-28"
+  },
+  {
+    "Name": "Ставровський А.Б.",
+    "Faculty": "ФКНК",
+    "Cathedra": "",
+    "Auditory": "",
+    "Subject": "АОС",
+    "StudentGroup": "К-25, К-26"
   }
 ]

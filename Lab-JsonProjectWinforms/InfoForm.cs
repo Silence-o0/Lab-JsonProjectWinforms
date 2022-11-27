@@ -26,5 +26,30 @@ namespace Lab_JsonProjectWinforms
         {
             this.Close();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InfoForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
