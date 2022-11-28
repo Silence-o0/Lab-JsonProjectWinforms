@@ -18,7 +18,7 @@ namespace Lab_JsonProjectWinforms
     public partial class MainForm : Form
     {
         private List<Schedule> currentListOnTable;              //поточний список, який відображається в DataGridView
-        public string Path { get; set; } = "./schedule.json";
+        public string Path { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -26,20 +26,20 @@ namespace Lab_JsonProjectWinforms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            CreateTableColumns(Data.table);
 
             try
             {
-                DeserializeFile();
+                CreateTableColumns(Data.table);
+                DataGridView.DataSource = Data.table;
             }
             catch 
             {
-                Data.ErrorMessage = "Помилка десеріалізації файлу.";
+                Data.ErrorMessage = "Помилка генерування таблиці. Перезапустить програму.";
                 WarningForm warningForm = new();
                 warningForm.Show();
             }
 
-            DataGridView.DataSource = Data.table;
+            
         }
 
         private void CreateTableColumns(DataTable table)
