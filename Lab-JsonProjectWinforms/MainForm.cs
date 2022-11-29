@@ -105,7 +105,7 @@ namespace Lab_JsonProjectWinforms
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            Buttons.EditData(this);
+            EditData();
         }
 
         private void SaveAs_Click(object sender, EventArgs e)
@@ -115,86 +115,55 @@ namespace Lab_JsonProjectWinforms
 
         private void OpenAsButton_Click(object sender, EventArgs e)
         {
-            Buttons.OpenAs(this);
+            OpenAs();
         }
 
         private void InfoButton_Click(object sender, EventArgs e)
         {
-            Buttons.InfoOpen(this);
+            InfoOpen();
         }
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            Buttons.AddData(this);
+            AddData();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            Buttons.DeleteData(this);
+            DeleteData();
         }
 
         private void OkSearchButton_Click(object sender, EventArgs e)
         {
-            Buttons.SearchInList(this);
+            SearchInList();
         }
 
         private void ReturnSearchButton_Click(object sender, EventArgs e)
         {
-            Buttons.ReturnToMainList(this);
+            ReturnToMainList();
         }
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Buttons.Save(this);
+            Save();
         }
 
         private void SaveAsButton_Click(object sender, EventArgs e)
         {
-            Buttons.SaveAs();
+            SaveAs();
         }
 
-        static class Buttons
-         {
-            internal static void SaveAs()
+        private void SaveAs()
+        {
+            try
             {
-                try
+                SaveFileDialog saveFile = new()
                 {
-                    SaveFileDialog saveFile = new()
-                    {
-                        Filter = "Json-file|*.json",
-                        Title = "Save as"
-                    };
+                    Filter = "Json-file|*.json",
+                    Title = "Save as"
+                };
 
-                    saveFile.ShowDialog();
+                saveFile.ShowDialog();
 
-                    try
-                    {
-                        var options = new JsonSerializerOptions
-                        {
-                            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
-                            WriteIndented = true
-                        };
-
-                        string serializedFile = JsonSerializer.Serialize(Data.lessonsList, options);
-                        File.WriteAllText(saveFile.FileName, serializedFile);
-                    }
-                    catch
-                    {
-                        Data.ErrorMessage = "Помилка серіалізації файлу.";
-                        WarningForm warningForm = new();
-                        warningForm.Show();
-                        return;
-                    }
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Не вдається зберегти файл.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
-            }
-
-            internal static void Save(dynamic form)
-            {
                 try
                 {
                     var options = new JsonSerializerOptions
@@ -204,262 +173,317 @@ namespace Lab_JsonProjectWinforms
                     };
 
                     string serializedFile = JsonSerializer.Serialize(Data.lessonsList, options);
-                    File.WriteAllText(form.Path, serializedFile);
+                    File.WriteAllText(saveFile.FileName, serializedFile);
                 }
                 catch
                 {
-                    Data.ErrorMessage = "Не вдається зберегти файл.";
+                    Data.ErrorMessage = "Помилка серіалізації файлу.";
+                    WarningForm warningForm = new();
+                    warningForm.Show();
+                    return;
+                }
+            }
+            catch
+            {
+                Data.ErrorMessage = "Не вдається зберегти файл.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+        }
+
+        private void Save()
+        {
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+                    WriteIndented = true
+                };
+
+                string serializedFile = JsonSerializer.Serialize(Data.lessonsList, options);
+                File.WriteAllText(Path, serializedFile);
+            }
+            catch
+            {
+                Data.ErrorMessage = "Не вдається зберегти файл.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+
+        }
+        private void OpenAs()
+        {
+            try
+            {
+                OpenFileDialog openFile = new()
+                {
+                    Filter = "Json-file|*.json",
+                    Title = "Open as"
+                };
+
+                if (openFile.ShowDialog() == DialogResult.OK)
+                {
+                    Path = openFile.FileName;
+                    DeserializeFile();
+                }
+                else
+                {
+                    Data.ErrorMessage = "Файл не було обрано.";
                     WarningForm warningForm = new();
                     warningForm.Show();
                 }
             }
-
-            internal static void OpenAs(dynamic form)
+            catch
             {
-                try
-                {
-                    OpenFileDialog openFile = new()
-                    {
-                        Filter = "Json-file|*.json",
-                        Title = "Open as"
-                    };
+                Data.ErrorMessage = "Помилка відкриття файлу.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+        }
 
-                    if (openFile.ShowDialog() == DialogResult.OK)
+        private void InfoOpen()
+        {
+            InfoForm infoForm = new();
+            infoForm.Show();
+        }
+
+        private void EditData()
+        {
+            Data.AddNewElement = false;     //змінна, яка каже що користувач хоче редагувати рядок
+            if (DataGridView.SelectedRows.Count == 1)
+            {
+                DataGridViewRow row = DataGridView.SelectedRows[0];
+
+                int i = 0;
+                    foreach (Data.Schedule element in Data.lessonsList)
                     {
-                        form.Path = openFile.FileName;
-                        form.DeserializeFile();
+                        if (element.Name == row.Cells[0].Value.ToString() &&
+                            element.Faculty == row.Cells[1].Value.ToString() &&
+                            element.Cathedra == row.Cells[2].Value.ToString() &&
+                            element.Auditory == row.Cells[3].Value.ToString() &&
+                            element.Subject == row.Cells[4].Value.ToString() &&
+                            element.StudentGroup == row.Cells[5].Value.ToString())
+                        {
+                            break;
+                        }
+                        i++;
                     }
-                    else
-                    {
-                        Data.ErrorMessage = "Файл не було обрано.";
-                        WarningForm warningForm = new();
-                        warningForm.Show();
-                    }
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Помилка відкриття файлу.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
-            }
 
-            internal static void InfoOpen(dynamic form)
-            {
-                InfoForm infoForm = new();
-                infoForm.Show();
-            }
+                Data.EditRowIndex = i;     //індекс рядка, який користувач хоче редагувати
 
-            internal static void EditData(dynamic form)
-            {
-                Data.AddNewElement = false;     //змінна, яка каже що користувач хоче редагувати рядок
-                if (form.DataGridView.SelectedRows.Count == 1)
-                {
-                    Data.EditRowIndex = form.DataGridView.SelectedRows[0].Index;    //індекс рядка, який користувач хоче редагувати
-
-                    AddEditForm addEditForm = new();
-                    addEditForm.Show();
-                }
-                else if (form.DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
-                {
-                    Data.ErrorMessage = "Оберіть рядок, який хочете редагувати, натиснувши на відповідну " +
-                      "клітинку у першому стовпчику та виділивши бажаний рядок.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-
-                }
-                else       //обрано більше 1 рядка
-                {
-                    Data.ErrorMessage = "Ви можете обрати лише один рядок.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
-                ReturnToMainList(form);
-            }
-
-            internal static void AddData(dynamic form)
-            {
-                Data.AddNewElement = true;       //змінна, яка каже, що користувач хоче додати рядок
                 AddEditForm addEditForm = new();
                 addEditForm.Show();
-                ReturnToMainList(form);
             }
-
-            internal static void DeleteData(dynamic form)
+            else if (DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
             {
-                try
-                {
-                    if (form.DataGridView.SelectedRows.Count > 0 && form.DataGridView.SelectedRows.Count <= form.DataGridView.Rows.Count)
-                    {
-                        DialogResult result = MessageBox.Show("Ви впевнені, що хочете видалити?", "Видалення", MessageBoxButtons.YesNo);
+                Data.ErrorMessage = "Оберіть рядок, який хочете редагувати, натиснувши на відповідну " +
+                  "клітинку у першому стовпчику та виділивши бажаний рядок.";
+                WarningForm warningForm = new();
+                warningForm.Show();
 
-                        switch (result)
-                        {
-                            case DialogResult.Yes:
+            }
+            else       //обрано більше 1 рядка
+            {
+                Data.ErrorMessage = "Ви можете обрати лише один рядок.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+            ReturnToMainList();
+        }
+
+        private void AddData()
+        {
+            Data.AddNewElement = true;       //змінна, яка каже, що користувач хоче додати рядок
+            AddEditForm addEditForm = new();
+            addEditForm.Show();
+            ReturnToMainList();
+        }
+
+        private void DeleteData()
+        {
+            try
+            {
+                if (DataGridView.SelectedRows.Count > 0 && DataGridView.SelectedRows.Count <= DataGridView.Rows.Count)
+                {
+                    DialogResult result = MessageBox.Show("Ви впевнені, що хочете видалити?", "Видалення", MessageBoxButtons.YesNo);
+
+                    switch (result)
+                    {
+                        case DialogResult.Yes:
+                            {
+
+                                foreach (DataGridViewRow row in DataGridView.SelectedRows)
                                 {
-
-                                    foreach (DataGridViewRow row in form.DataGridView.SelectedRows)
+                                    int i = 0;
+                                    foreach (Data.Schedule element in Data.lessonsList)
                                     {
-                                        int i = 0;
-                                        foreach (Data.Schedule element in Data.lessonsList)
+                                        if (element.Name == row.Cells[0].Value.ToString() &&
+                                            element.Faculty == row.Cells[1].Value.ToString() &&
+                                            element.Cathedra == row.Cells[2].Value.ToString() &&
+                                            element.Auditory == row.Cells[3].Value.ToString() &&
+                                            element.Subject == row.Cells[4].Value.ToString() &&
+                                            element.StudentGroup == row.Cells[5].Value.ToString())
                                         {
-                                            if (element.Name == row.Cells[0].Value.ToString() &&
-                                                element.Faculty == row.Cells[1].Value.ToString() &&
-                                                element.Cathedra == row.Cells[2].Value.ToString() &&
-                                                element.Auditory == row.Cells[3].Value.ToString() &&
-                                                element.Subject == row.Cells[4].Value.ToString() &&
-                                                element.StudentGroup == row.Cells[5].Value.ToString())
-                                            {
-                                                break;
-                                            }
-                                            i++;
+                                            break;
                                         }
-                                        if (form.DataGridView.Rows.Count != Data.lessonsList.Count)
-                                        {
-                                            DataRow rr = Data.table.Rows[i];
-                                            rr.Delete();
-                                        }
-                                        Data.lessonsList.RemoveAt(i);
-
-                                        form.DataGridView.Rows.RemoveAt(row.Index);
+                                        i++;
                                     }
+                                    if (DataGridView.Rows.Count != Data.lessonsList.Count)
+                                    {
+                                        DataRow rr = Data.table.Rows[i];
+                                        rr.Delete();
+                                    }
+                                    Data.lessonsList.RemoveAt(i);
+
+                                    DataGridView.Rows.RemoveAt(row.Index);
                                 }
-                                break;
+                            }
+                            break;
 
-                            case DialogResult.No:
-                                break;
-                        }
-                    }
-                    else if (form.DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
-                    {
-                        Data.ErrorMessage = "Оберіть рядок, який хочете видалити, натиснувши на відповідну " +
-                           "клітинку у першому стовпчику та виділивши бажаний рядок.";
-                        WarningForm warningForm = new();
-                        warningForm.Show();
+                        case DialogResult.No:
+                            break;
                     }
                 }
-                catch
+                else if (DataGridView.SelectedRows.Count == 0)     // Якщо рядок не обраний
                 {
-                    Data.ErrorMessage = "Невдалось видалити. Спробуйте ще раз.";
+                    Data.ErrorMessage = "Оберіть рядок, який хочете видалити, натиснувши на відповідну " +
+                       "клітинку у першому стовпчику та виділивши бажаний рядок.";
                     WarningForm warningForm = new();
                     warningForm.Show();
                 }
             }
-
-            internal static void ReturnToMainList(dynamic form)
+            catch
             {
-                try
+                Data.ErrorMessage = "Невдалось видалити. Спробуйте ще раз.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+        }
+
+        private void ReturnToMainList()
+        {
+            try
+            {
+                currentListOnTable = Data.lessonsList;
+                DataGridView.DataSource = Data.table;
+            }
+            catch
+            {
+                Data.ErrorMessage = "Неможливо повернутися до початкової таблиці. Будь ласка, відкрийте файл знову.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+        }
+        private void SearchInList()
+        {
+            try
+            {
+                if (ComboBoxTypeSearch.Text == "ПІБ:")
                 {
-                    form.currentListOnTable = Data.lessonsList;
-                    form.DataGridView.DataSource = Data.table;
+                    SearchNameFunction(currentListOnTable);
                 }
-                catch
+                else if (ComboBoxTypeSearch.Text == "Дисципліна:")
                 {
-                    Data.ErrorMessage = "Неможливо повернутися до початкової таблиці. Будь ласка, відкрийте файл знову.";
+                    SearchSubjectFunction(currentListOnTable);
+                }
+                else if (ComboBoxTypeSearch.Text == "Група:")
+                {
+                    SearchGroupFunction(currentListOnTable);
+                }
+                else
+                {
+                    Data.ErrorMessage = "Оберіть критерій за яким хочете здійснити пошук.";
                     WarningForm warningForm = new();
                     warningForm.Show();
                 }
             }
-
-            internal static void SearchInList(dynamic form)
+            catch
             {
-                try
-                {
-                    if (form.ComboBoxTypeSearch.Text == "ПІБ:")
-                    {
-                        SearchNameFunction(form.currentListOnTable, form);
-                    }
-                    else if (form.ComboBoxTypeSearch.Text == "Дисципліна:")
-                    {
-                        SearchSubjectFunction(form.currentListOnTable, form);
-                    }
-                    else if (form.ComboBoxTypeSearch.Text == "Група:")
-                    {
-                        SearchGroupFunction(form.currentListOnTable, form);
-                    }
-                    else
-                    {
-                        Data.ErrorMessage = "Оберіть критерій за яким хочете здійснити пошук.";
-                        WarningForm warningForm = new();
-                        warningForm.Show();
-                    }
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Неможливо здійснити пошук.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
+                Data.ErrorMessage = "Неможливо здійснити пошук.";
+                WarningForm warningForm = new();
+                warningForm.Show();
             }
-
-            private static void SearchNameFunction(List<Data.Schedule> list, dynamic form)
+        }
+        private void SearchNameFunction(List<Data.Schedule> list)
+        {
+            try
             {
-                try
-                {
-                    DataTable resultTable = new();
-                    form.CreateTableColumns(resultTable);
+                DataTable resultTable = new();
+                CreateTableColumns(resultTable);
 
-                    var templist = from temp in list
-                                   where temp.Name.ToLower().Contains(form.textBoxDataSearch.Text.ToLower())
-                                   select temp;
+                var templist = from temp in list
+                               where temp.Name.ToLower().Contains(textBoxDataSearch.Text.ToLower())
+                               select temp;
 
-                    form.AddToTable(list, ref resultTable);
+                AddToTable(list, ref resultTable);
 
-                    form.currentListOnTable = templist.ToList();
-                    form.DataGridView.DataSource = resultTable;
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Неможливо здійснити пошук.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
+                currentListOnTable = templist.ToList();
+                DataGridView.DataSource = resultTable;
             }
-
-            private static void SearchSubjectFunction(List<Data.Schedule> list, dynamic form)
+            catch
             {
-                try { 
-                    DataTable resultTable = new();
-                    form.CreateTableColumns(resultTable);
-
-                    var templist = from temp in list
-                                   where temp.Subject.ToLower() == form.textBoxDataSearch.Text.ToLower()
-                                   select temp;
-
-                    form.AddToTable(list, ref resultTable);
-
-                    form.currentListOnTable = templist.ToList();
-                    form.DataGridView.DataSource = resultTable;
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Неможливо здійснити пошук.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
+                Data.ErrorMessage = "Неможливо здійснити пошук.";
+                WarningForm warningForm = new();
+                warningForm.Show();
             }
-
-            private static void SearchGroupFunction(List<Data.Schedule> list, dynamic form)
+            finally
             {
-                try { 
-                    DataTable resultTable = new();
-                    form.CreateTableColumns(resultTable);
+                textBoxDataSearch.Text = String.Empty;
+            }
+        }
+        private void SearchSubjectFunction(List<Data.Schedule> list)
+        {
+            try
+            {
+                DataTable resultTable = new();
+                CreateTableColumns(resultTable);
 
-                    var templist = from temp in list
-                                   where temp.StudentGroup.ToLower().Contains(form.textBoxDataSearch.Text.ToLower())
-                                   select temp;
+                var templist = from temp in list
+                               where temp.Subject.ToLower() == textBoxDataSearch.Text.ToLower()
+                               select temp;
 
-                    form.AddToTable(list, ref resultTable);
+                AddToTable(list, ref resultTable);
 
-                    form.currentListOnTable = templist.ToList();
-                    form.DataGridView.DataSource = resultTable;
-                }
-                catch
-                {
-                    Data.ErrorMessage = "Неможливо здійснити пошук.";
-                    WarningForm warningForm = new();
-                    warningForm.Show();
-                }
+                currentListOnTable = templist.ToList();
+                DataGridView.DataSource = resultTable;
+            }
+            catch
+            {
+                Data.ErrorMessage = "Неможливо здійснити пошук.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+            finally
+            {
+                textBoxDataSearch.Text = String.Empty;
+            }
+        }
+        private void SearchGroupFunction(List<Data.Schedule> list)
+        {
+            try
+            {
+                DataTable resultTable = new();
+                CreateTableColumns(resultTable);
+
+                var templist = from temp in list
+                               where temp.StudentGroup.ToLower().Contains(textBoxDataSearch.Text.ToLower())
+                               select temp;
+
+                AddToTable(list, ref resultTable);
+
+                currentListOnTable = templist.ToList();
+                DataGridView.DataSource = resultTable;
+            }
+            catch
+            {
+                Data.ErrorMessage = "Неможливо здійснити пошук.";
+                WarningForm warningForm = new();
+                warningForm.Show();
+            }
+            finally
+            {
+                textBoxDataSearch.Text = String.Empty;
             }
         }
     }

@@ -2,7 +2,7 @@
   {
     "Name": "Шкільняк С.С.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТТП",
     "Auditory": "34",
     "Subject": "Математична логіка",
     "StudentGroup": "К-17, К-18"
@@ -18,7 +18,7 @@
   {
     "Name": "Омельчук Л.Л.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТТП",
     "Auditory": "",
     "Subject": "ООП",
     "StudentGroup": "К-27"
@@ -26,23 +26,23 @@
   {
     "Name": "Ставровський А.Б.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТК",
     "Auditory": "",
     "Subject": "Програмування",
     "StudentGroup": "К-14, К-15, К-16, К-17"
   },
   {
-    "Name": "Набока ",
+    "Name": "Русіна Н.Г.",
     "Faculty": "",
     "Cathedra": "",
-    "Auditory": "",
-    "Subject": "ВДУС",
-    "StudentGroup": "К-14, К-15, К-16, К-17"
+    "Auditory": "02",
+    "Subject": "ООП",
+    "StudentGroup": "К-27"
   },
   {
     "Name": "Шкільняк С.С.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТТП",
     "Auditory": "34",
     "Subject": "Математична логіка",
     "StudentGroup": "К-25, К-26"
@@ -50,7 +50,7 @@
   {
     "Name": "Ставровський А.Б.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТК",
     "Auditory": "",
     "Subject": "АОС",
     "StudentGroup": "К-27, К-28"
@@ -58,7 +58,7 @@
   {
     "Name": "Ставровський А.Б.",
     "Faculty": "ФКНК",
-    "Cathedra": "",
+    "Cathedra": "ТК",
     "Auditory": "",
     "Subject": "АОС",
     "StudentGroup": "К-25, К-26"

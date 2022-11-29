@@ -21,16 +21,16 @@ namespace Lab_JsonProjectWinforms
         public static int EditRowIndex;        //індекс рядку, який користувач хоче змінити
         public class Schedule
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
             public string? Faculty { get; set; }
 
             public string? Cathedra { get; set; }
 
             public string? Auditory { get; set; }
 
-            public string Subject { get; set; }
+            public string? Subject { get; set; }
 
-            public string StudentGroup { get; set; }
+            public string? StudentGroup { get; set; }
             public Schedule() { }
             public Schedule (string name, string faculty, string cathedra, string auditory, string subject, string group)
             {

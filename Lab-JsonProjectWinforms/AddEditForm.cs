@@ -102,6 +102,14 @@ namespace Lab_JsonProjectWinforms
                         Data.table.Rows[Data.EditRowIndex][3] = textBoxAuditory.Text;
                         Data.table.Rows[Data.EditRowIndex][4] = textBoxSubject.Text;
                         Data.table.Rows[Data.EditRowIndex][5] = textBoxGroup.Text;
+
+                        Data.lessonsList[Data.EditRowIndex].Name = textBoxName.Text;
+                        Data.lessonsList[Data.EditRowIndex].Faculty = textBoxFaculty.Text;
+                        Data.lessonsList[Data.EditRowIndex].Cathedra = textBoxCathedra.Text;
+                        Data.lessonsList[Data.EditRowIndex].Auditory = textBoxAuditory.Text;
+                        Data.lessonsList[Data.EditRowIndex].Subject = textBoxSubject.Text;
+                        Data.lessonsList[Data.EditRowIndex].StudentGroup = textBoxGroup.Text;
+
                     }
                     catch
                     {
